@@ -1,0 +1,33 @@
+sourceRepos:
+  - https://github.com/organization/train-one/*
+
+admins: 
+  system-team: 00000000-0000-0000-0000-000000000000
+
+readonly:
+  coordination:
+    glob: '*'
+    azureAdId: 11111111-1111-1111-1111-111111111111
+  frontline:
+    glob: '*'
+    azureAdId: 22222222-2222-2222-2222-222222222222
+  redsquad:
+    glob: '*'
+    azureAdId: 33333333-3333-3333-3333-333333333333
+  bluesquad:
+    glob: '*'
+    azureAdId: 44444444-4444-4444-4444-444444444444
+  greensquad:
+    glob: '*'
+    azureAdId: 55555555-5555-5555-5555-555555555555
+
+edit:
+  redsquad:
+    glob: 'red-*'
+    azureAdId: 33333333-3333-3333-3333-333333333333
+  bluesquad:
+    glob: 'blue-*'
+    azureAdId: 44444444-4444-4444-4444-444444444444
+  greensquad:
+    glob: 'green-*'
+    azureAdId: 55555555-5555-5555-5555-555555555555
