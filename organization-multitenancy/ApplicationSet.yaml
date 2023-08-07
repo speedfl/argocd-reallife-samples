@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: team-configurations
+  namespace: argocd
+  labels:
+    owner: platform-team
+spec:
+  goTemplate: true
+  generators:
+  - git:
+      repoURL: https://github.com/speedfl/argocd-reallife-samples.git
+      revision: HEAD
+      files:
+        - path: 'organization-multitenancy/configs/*.yaml'
+  template:
+    metadata:
+      name: '{{ index (splitList "." .path.filenameNormalized) 0 }}-team-configuration'
+      labels:
+        owner: platform-team
+    spec:
+      project: platform
+      sources:
+        - repoURL: https://github.com/speedfl/argocd-reallife-samples.git
+          targetRevision: HEAD
+          ref: values
+        - repoURL: https://github.com/speedfl/argocd-reallife-samples.git
+          targetRevision: HEAD
+          path: organization-multitenancy/chart
+          helm:
+            valueFiles:
+              - $values/{{ .path.path }}/{{.path.filename}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
